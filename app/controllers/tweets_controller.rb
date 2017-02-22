@@ -8,10 +8,23 @@ class TweetsController < ApplicationController
     @tweet = Tweet.new(tweet_params)
 
     if @tweet.save
-      redirect_to tweets_path
-    else
-      render :index
+
+      respond_to do |format|
+        format.html
+        format.json { render json: #@tweet
+          { message: @tweet.message,
+            created_at: @tweet.created_at.strftime('%b %e, %l:%M %p'),
+          }
+        }
+      end
+
+    #   if @tweet.save
+    #     redirect_to tweets_path
+    #   else
+    #     render :index
+    #   end
     end
+
   end
 
   def destroy
